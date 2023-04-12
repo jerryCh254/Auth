@@ -58,10 +58,13 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(10),
                       borderSide: const BorderSide()),
                 ),
+                obscureText: true,
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter password';
+                  } else if (value.length < 8) {
+                    return "Must be of 8 digits";
                   }
                   return null;
                 },
@@ -72,12 +75,12 @@ class _HomePageState extends State<HomePage> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    print("validate");
-                  } else {
-                    print("not validate");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
                   }
                 },
-                child: const Text("submit"),
+                child: const Text('Submit'),
               ),
             ],
           )),
